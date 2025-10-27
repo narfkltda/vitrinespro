@@ -130,12 +130,24 @@ body {
 
 /* Section Styles */
 .about,
-.products {
+.products,
+.contact {
     padding: 4rem 0;
 }
 
 .about {
     background-color: var(--bg-light);
+}
+
+.contact-link {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.contact-link:hover {
+    color: var(--primary-hover);
 }
 
 .section-title {
