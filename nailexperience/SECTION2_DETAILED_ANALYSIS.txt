@@ -1,0 +1,163 @@
+SECTION 2: "Veja tudo o que você vai receber"
+===============================================
+
+HTML STRUCTURE:
+---------------
+Container: elementor-element-73610b4c
+- Type: e-con-boxed e-child
+- Class: scroll-bottom
+- Parent: elementor-element-59199f4c
+
+Heading:
+--------
+- Element ID: 678fb569
+- Class: elementor-heading-title elementor-size-default
+- Animation: fadeInLeft
+- Text: "Veja <b>tudo</b> o <b>que</b> <b>você</b> <b>vai</b> <b>receber:</b>"
+
+ICON BOX 1: BÁSICO AO AVANÇADO
+--------------------------------
+- Element ID: 64a9ee52
+- Type: icon-box
+- Icon Position: top
+- Animation: zoomIn
+- Icon: SVG (hand/learning icon - detailed SVG path)
+
+Text Content:
+Title: "BÁSICO AO AVANÇADO"
+Description: "Passo a passo simples e didático, não importa se você já possui ou não conhecimento na área."
+
+
+ICON BOX 2: +130 AULAS DIDÁTICAS
+----------------------------------
+- Element ID: 2f3787b7
+- Type: icon-box
+- Icon Position: top
+- Animation: zoomIn
+- Icon: SVG (video/presentation icon)
+
+Text Content:
+Title: "+130 AULAS DIDÁTICAS"
+Description: "Aulas muito didáticas, qualquer pessoa consegue aprender e colocar em prática o conteúdo ensinado."
+
+
+ICON BOX 3: 25 Certificados Inclusos
+--------------------------------------
+- Element ID: 729326c2
+- Type: icon-box
+- Icon Position: top
+- Animation: zoomIn
+- Icon: SVG (certificate/diploma icon)
+
+Text Content:
+Title: "25 Certificados Inclusos"
+Description: "Isso mesmo, ao garantir nosso curso, você receberá 25 certificados Profissionais."
+
+
+CSS CLASSES USED:
+-----------------
+- elementor-icon-box-wrapper
+- elementor-icon-box-icon
+- elementor-icon
+- elementor-icon-box-content
+- elementor-icon-box-title
+- elementor-icon-box-description
+- elementor-invisible (for animations)
+- elementor-position-top
+- elementor-mobile-position-top
+
+
+ANIMATION SETTINGS:
+-------------------
+All 3 icon boxes use:
+- Animation: "zoomIn"
+- Trigger: on scroll (invisible until scrolled into view)
+
+
+LAYOUT STRUCTURE:
+-----------------
+<div class="elementor-element-73610b4c scroll-bottom e-flex e-con-boxed e-con">
+  <div class="e-con-inner">
+    
+    <!-- Icon Box 1 -->
+    <div class="elementor-element-64a9ee52 elementor-widget-icon-box">
+      <div class="elementor-icon-box-wrapper">
+        <div class="elementor-icon-box-icon">
+          <span class="elementor-icon">
+            [SVG Icon 1]
+          </span>
+        </div>
+        <div class="elementor-icon-box-content">
+          <h3 class="elementor-icon-box-title">BÁSICO AO AVANÇADO</h3>
+          <p class="elementor-icon-box-description">Passo a passo simples...</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Icon Box 2 -->
+    <div class="elementor-element-2f3787b7 elementor-widget-icon-box">
+      [Similar structure with +130 AULAS content]
+    </div>
+    
+    <!-- Icon Box 3 -->
+    <div class="elementor-element-729326c2 elementor-widget-icon-box">
+      [Similar structure with 25 Certificados content]
+    </div>
+    
+  </div>
+</div>
+
+
+SECTION DIVIDERS:
+-----------------
+- Top Divider: SVG shape with mountains (path class: elementor-shape-fill)
+- Opacity layers: 0.33, 0.66, and 1.0 (creating depth effect)
+- Bottom Divider: Wave-brush SVG shape (in next section)
+
+
+BACKGROUND SETTINGS:
+--------------------
+- Container: data-settings="{background_background:classic}"
+- Shape divider bottom: mountains
+
+
+RESPONSIVE BEHAVIOR:
+--------------------
+- Mobile: Icon position changes to top
+- Desktop: Icons remain in top position
+- Animation triggers on scroll (scroll-bottom class)
+
+
+COLOR SCHEME:
+-------------
+No specific color classes in HTML - styling comes from:
+- elementor-icon-box-title: inherits from theme
+- elementor-icon-box-description: inherits from theme
+- Icons: SVG elements (black/gray default colors)
+- Styling controlled by custom-frontend.min.css
+
+
+CSS FILES INVOLVED:
+-------------------
+- custom-frontend.min.css (main Elementor styles)
+- custom-widget-icon-box.min.css (icon box specific styles)
+- post-7137.css (page-specific overrides)
+- fadeInLeft.min.css (heading animation)
+- zoomIn.min.css (icon box animations)
+
+
+SCRIPT DEPENDENCIES:
+--------------------
+- elementor-frontend.js (for animations)
+- jquery.min.js (for jQuery)
+- Elementor frontend modules
+
+
+NOTES:
+------
+- All three boxes have same structure
+- Icons are inline SVG for faster loading
+- Animations use Elementor's built-in animation system
+- Scroll-based animation for engagement
+- Boxes are in a grid/flex layout (responsive)
+
