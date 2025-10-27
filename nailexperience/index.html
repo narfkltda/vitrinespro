@@ -1503,5 +1503,34 @@ var ElementorProFrontendConfig = {"ajaxurl":"#","nonce":"f11b63d697","urls":{"as
 <script src="assets/js/frontend.min.js?ver=3.24.1" id="elementor-pro-frontend-js"></script>
 <script src="assets/js/elements-handlers.min.js?ver=3.24.1" id="pro-elements-handlers-js"></script>
 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Fire ViewContent event on page load
+    if (typeof fbq !== 'undefined') {
+        fbq('track', 'ViewContent');
+    }
+
+    // Function to track Lead event
+    function trackCTAClick(button) {
+        button.addEventListener('click', function() {
+            if (typeof fbq !== 'undefined') {
+                fbq('track', 'Lead');
+                console.log('Meta Pixel: Lead event fired');
+            }
+        });
+    }
+
+    // Find CTA buttons by text content
+    const buttons = document.querySelectorAll('.elementor-button');
+    buttons.forEach(function(button) {
+        const buttonText = button.textContent.trim();
+        if (buttonText.includes('FAZER MINHA INSCRIÇÃO') || 
+            buttonText.includes('CLIQUE PARA RECEBER ACESSO')) {
+            trackCTAClick(button);
+        }
+    });
+});
+</script>
+
 </body>
 </html>
