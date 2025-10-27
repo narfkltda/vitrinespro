@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nail Experience - VitrinesPro</title>
+    <meta name="description" content="Transforme-se em uma especialista em design de unhas com técnicas profissionais e produtos de alta qualidade.">
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .nail-hero {
+            background: linear-gradient(135deg, #FF6B9D 0%, #C44569 100%);
+            color: white;
+            padding: 8rem 0;
+            text-align: center;
+        }
+
+        .nail-features {
+            padding: 5rem 0;
+            background-color: var(--bg-light);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .nail-products {
+            padding: 5rem 0;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #FF6B9D 0%, #C44569 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-top: 1rem;
+        }
+
+        .nail-cta {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, #FF6B9D 0%, #C44569 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .nail-cta .cta-button {
+            background-color: white;
+            color: #C44569;
+        }
+
+        @media (max-width: 768px) {
+            .feature-grid,
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="container">
+                <a href="/" class="logo">VitrinesPro</a>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Início</a></li>
+                    <li><a href="../index.html#about">Sobre</a></li>
+                    <li><a href="../index.html#contact">Contato</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="nail-hero">
+        <div class="container">
+            <h1 class="hero-title">Nail Experience</h1>
+            <p class="hero-subtitle">Domine a Arte das Unhas Profissionais</p>
+            <p class="hero-description">
+                Desenvolva habilidades técnicas avançadas e transforme-se em uma especialista reconhecida no mundo da nail art. 
+                Aprenda técnicas profissionais com produtos de alta qualidade.
+            </p>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="nail-features">
+        <div class="container">
+            <h2 class="section-title">O Que Você Vai Aprender</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>🪩 Técnicas Avançadas</h3>
+                    <p>Aprenda as mais modernas técnicas de nail art, desde o básico até o nível profissional.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>💅 Produtos Premium</h3>
+                    <p>Trabalhe com os melhores produtos do mercado, garantindo resultados impecáveis.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🎨 Design Criativo</h3>
+                    <p>Desenvolva sua criatividade e aprenda a criar designs únicos e personalizados.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>📚 Conteúdo Completo</h3>
+                    <p>Acesso a materiais exclusivos e atualizados para sua evolução profissional.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="nail-products">
+        <div class="container">
+            <h2 class="section-title">Produtos em Destaque</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image">💎</div>
+                    <div class="product-info">
+                        <h3 class="product-title">Kit Básico Nail Art</h3>
+                        <p>Comece sua jornada com este kit completo para iniciantes.</p>
+                        <p class="product-price">R$ 249,90</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">✨</div>
+                    <div class="product-info">
+                        <h3 class="product-title">Kit Avançado</h3>
+                        <p>Ferramentas profissionais para quem quer se especializar.</p>
+                        <p class="product-price">R$ 499,90</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">🌟</div>
+                    <div class="product-info">
+                        <h3 class="product-title">Kit Master Nail Artist</h3>
+                        <p>O mais completo para quem busca a excelência.</p>
+                        <p class="product-price">R$ 899,90</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="nail-cta">
+        <div class="container">
+            <h2 class="section-title">Comece Sua Jornada Agora</h2>
+            <p class="section-text" style="color: white;">
+                Transforme sua paixão em profissão com a Nail Experience.
+            </p>
+            <a href="#contact" class="cta-button" style="margin-top: 2rem;">Saiba Mais</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>NARFK - SOFTWARE E DESENVOLVIMENTO LTDA</p>
+            <p>CNPJ: 41.077.003/0001-00</p>
+            <ul class="footer-links">
+                <li><a href="../privacy.html">Política de Privacidade</a></li>
+                <li><a href="../index.html#contact">Contato</a></li>
+                <li><a href="mailto:contact@narfk.com">contact@narfk.com</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+</body>
+</html>
+
