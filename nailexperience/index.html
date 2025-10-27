@@ -1510,12 +1510,35 @@ document.addEventListener('DOMContentLoaded', function() {
         fbq('track', 'ViewContent');
     }
 
-    // Function to track Lead event
+    // Function to track Lead event and handle redirect
     function trackCTAClick(button) {
-        button.addEventListener('click', function() {
-            if (typeof fbq !== 'undefined') {
-                fbq('track', 'Lead');
-                console.log('Meta Pixel: Lead event fired');
+        button.addEventListener('click', function(event) {
+            const buttonText = button.textContent.trim();
+            
+            // Only intercept the checkout button (CLIQUE PARA RECEBER ACESSO)
+            if (buttonText.includes('CLIQUE PARA RECEBER ACESSO')) {
+                event.preventDefault();
+                event.stopPropagation();
+                
+                // Get the original URL
+                const originalUrl = button.href;
+                
+                // Fire the Lead event
+                if (typeof fbq !== 'undefined') {
+                    fbq('track', 'Lead');
+                    console.log('Meta Pixel: Lead event fired');
+                }
+                
+                // Wait 400ms to ensure event is sent, then redirect
+                setTimeout(function() {
+                    window.location.href = originalUrl;
+                }, 400);
+            } else {
+                // For other buttons (FAZER MINHA INSCRIÇÃO), just track without preventing redirect
+                if (typeof fbq !== 'undefined') {
+                    fbq('track', 'Lead');
+                    console.log('Meta Pixel: Lead event fired');
+                }
             }
         });
     }
