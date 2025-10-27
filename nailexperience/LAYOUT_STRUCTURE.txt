@@ -1,0 +1,144 @@
+PAGE LAYOUT - Nail Academy (Reference: https://naildesignerescoladeunhasprofissionais.com/nail-academy/)
+==========================================================================================================
+
+1. HERO SECTION (Purple/Gradient Background)
+--------------------------------------------
+  - Logo: "Black-And-White-Minimalist-Typography-Personal-Logo.png"
+  - Main headline: "Seja Uma Especialista em Cutilagem, Fibra de Vidro, Molde F1, Encapsuladas, Esmaltação e muito mais"
+  - Subheadline: "– Perfeito para Iniciantes e Profissionais!" (color: #f9dcb5)
+  - Description: "Se torne uma profissional em Nail Designer Expert em Alongamento de Unhas... ganha de 5 a 7 salários por mês" (highlighted in #ebd48d)
+  - Video embed: ConverteAI player
+  - CTA button: "FAZER MINHA INSCRIÇÃO!" (links to #nail0102)
+  - Security badge: "Compra Segura" image
+
+2. SECTION: "Veja tudo o que você vai receber"
+-----------------------------------------------
+  Features:
+  1. BÁSICO AO AVANÇADO (with icon)
+  2. +130 AULAS DIDÁTICAS (with icon)
+  3. 25 Certificados Inclusos (with icon)
+
+
+3. SECTION: "O caminho do ZERO aos 7 SALÁRIOS"
+-----------------------------------------------
+  - Main headline
+  - Text about the academy
+  - Bold text highlighting "formamos mais de 48 mil mulheres"
+  - "Você será nossa próxima, vem com a gente! ❤️"
+
+
+4. SECTION: "TÉCNICAS QUE VOCÊ APRENDERÁ NO CURSO"
+-------------------------------------------------
+  Grid with icon boxes:
+  - Anatomia das Unhas
+  - Apresentação dos Materiais
+  - Fibra de Vidro
+  - MOLDE F1
+  - Alongamento Natural
+  - Alongamento Redondo
+  - Unha Almond
+  - Unha stiletto
+  - Unha Bailarina
+  - Francesinha Permanente
+  - Francesinha Bilateral
+  - Francesinha Reversa
+  - Francesinha Reta
+  - Esmaltação Art
+  - Decoração Cascata
+  - Decoração Trass
+  - Polygel
+  - Unha Encapsulada
+  - Spa Dos Pés
+  - Banho de Gel
+  - Cutilagem Descomplicada
+  - Blindagem da Fibra
+  - Manutenção Natural
+  - Lixamento Boomerang
+  - Manutenção com Reposição
+  - Esfoliação Avançada
+  - Tratamento para Calos
+  - Dicas de Atendimento
+
+
+5. SECTION: "BÔNUS que você vai ter acesso"
+--------------------------------------------
+  List with star ratings:
+  1. Curso Extensão de Cílios ⭐⭐⭐⭐⭐
+  2. Treinamento de Cutilagem ⭐⭐⭐⭐⭐
+  3. Manicure e Pedicure ⭐⭐⭐⭐⭐
+  4. Polygel Iniciante ⭐⭐⭐⭐⭐
+  5. Manicure Masculina ⭐⭐⭐⭐⭐
+
+
+6. SECTION: "VEJA SUA ÁREA DE ESTUDOS" + Certificates
+-------------------------------------------------------
+  - "Receba 25 Certificados de Conclusão"
+  - Certificate display section
+
+
+7. SECTION: Pricing / CTA (#nail0102)
+---------------------------------------
+  - "⚠️ VOCÊ NÃO VERÁ ESSA OFERTA NOVAMENTE"
+  - "Aproveite, pois é somente para as 10 primeiras"
+  - Countdown timer (Minutes + Seconds)
+  - Pricing:
+    - "Promoção limitada de ~~R$187,90~~ Por"
+    - "Apenas 12X de R$ 9,09"
+    - "ou R$ 87,90 á vista"
+  - Button: "CLIQUE PARA RECEBER ACESSO!"
+  - Guarantee: "Experimente por 7 dias 100% grátis!"
+
+
+8. FAQ SECTION
+--------------
+  Toggle questions:
+  1. E se por algum motivo eu não gostar do curso?
+     → "Nós confiamos tanto em nossos estudos e pesquisas que lhe garantimos 7 dias de garantia incondicional!"
+  
+  2. Preciso ter os materiais antes de iniciar?
+     → "Não, pois dentro do curso vamos começar com as aulas teóricas..."
+  
+  3. O curso terá certificado?
+     → "Sim! ao completar o curso você terá acesso a 25 Certificados"
+  
+  4. Tenho que pagar todo mês?
+     → "Seu pagamento é apenas uma única vez e o Curso é seu para sempre."
+  
+  5. Terei algum Suporte após a compra?
+     → "Sim, em nossa área de membros temos nosso WhatsApp de suporte..."
+  
+  6. O curso tem atualização? E eu pago por elas?
+     → "O curso tem atualização frequentemente... após a primeira compra você tem acesso para sempre!!!!"
+  
+  7. Comprando, como faço para Acessar?
+     → "Após você clicar em fazer inscrição e efetuar o pagamento..."
+  
+  8. Concluir o curso, como solicito os certificados?
+     → "É bem simples, apenas concluindo 60% do curso você já consegue solicitar..."
+
+
+9. FOOTER
+---------
+  - "© Copyright 2025. Todos os direitos reservados."
+  - "Desenvolvido por: MONEVO"
+
+
+COLOR SCHEME:
+-------------
+- Highlight color 1: #f9dcb5 (beige/tan)
+- Highlight color 2: #ebd48d (gold)
+- Background: Gradient purple theme
+- Section dividers: SVG shape dividers
+
+
+NOTES:
+------
+- All animations use Elementor widgets (fadeIn, zoomIn, fadeInLeft, etc.)
+- Videos are embedded via ConverteAI smart player
+- Form/AJAX functionality links to #nail0102 anchor
+- Countdown timer for urgency
+- Multiple CTAs throughout the page
+- Trust elements: Security badges, certificates, testimonials
+- Social proof: "48 mil mulheres" statistic
+- Money-back guarantee: 7 days
+
