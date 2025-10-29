@@ -1591,57 +1591,31 @@ document.addEventListener('DOMContentLoaded', function() {
             return false;
         }
 
-        // Evergreen countdown: Match Elementor Pro's exact logic
-        // Get widget ID for unique localStorage key
-        const widgetId = countdownWrapper.closest('[data-id]')?.getAttribute('data-id') || '4e39ae83';
-        const storageKey = 'elementor_countdown_' + widgetId;
+        // Simple 14:00 countdown timer (14 minutes)
+        const countdownMinutes = 14;
+        const countdownMs = countdownMinutes * 60 * 1000;
         
-        // Get evergreen interval (1440 minutes = 24 hours)
-        const evergreenInterval = parseInt(countdownWrapper.getAttribute('data-evergreen-interval')) || 1440;
-        const intervalMs = evergreenInterval * 60 * 1000; // Convert to milliseconds
-        
-        // Get or initialize cycle start timestamp from localStorage (Elementor Pro style)
-        let savedTimestamp = localStorage.getItem(storageKey);
-        const now = Date.now();
-        
-        if (!savedTimestamp) {
-            // Initialize: set start time to current time
-            savedTimestamp = now.toString();
-            localStorage.setItem(storageKey, savedTimestamp);
-        }
-        
-        let cycleStartTime = parseInt(savedTimestamp);
+        // Always start from 14:00 on page load
+        let endTime = Date.now() + countdownMs;
 
         function updateCountdown() {
             const now = Date.now();
-            
-            // Calculate elapsed time since cycle started
-            let elapsed = now - cycleStartTime;
-            
-            // If elapsed exceeds the interval, calculate how many cycles have passed
-            if (elapsed >= intervalMs) {
-                const cyclesPassed = Math.floor(elapsed / intervalMs);
-                const newCycleStart = cycleStartTime + (cyclesPassed * intervalMs);
-                cycleStartTime = newCycleStart;
-                localStorage.setItem(storageKey, cycleStartTime.toString());
-                elapsed = now - cycleStartTime;
+            let timeLeft = endTime - now;
+
+            // If countdown reached 0, reset to 14:00
+            if (timeLeft <= 0) {
+                endTime = Date.now() + countdownMs;
+                timeLeft = endTime - now;
             }
-            
-            // Calculate time remaining in current 24-hour cycle
-            const timeLeft = intervalMs - elapsed;
-            
-            // Extract minutes and seconds
+
+            // Calculate minutes and seconds
             const totalSeconds = Math.floor(timeLeft / 1000);
             const minutes = Math.floor(totalSeconds / 60);
             const seconds = totalSeconds % 60;
-            
-            // Display format: MM:SS (showing 0-59 minutes and 0-59 seconds)
-            const displayMinutes = minutes;
-            const displaySeconds = seconds;
 
-            // Update DOM elements
-            minutesEl.textContent = String(displayMinutes).padStart(2, '0');
-            secondsEl.textContent = String(displaySeconds).padStart(2, '0');
+            // Update display (MM:SS format)
+            minutesEl.textContent = String(minutes).padStart(2, '0');
+            secondsEl.textContent = String(seconds).padStart(2, '0');
         }
 
         // Update immediately
