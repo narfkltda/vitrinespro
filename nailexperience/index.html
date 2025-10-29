@@ -1591,12 +1591,28 @@ document.addEventListener('DOMContentLoaded', function() {
             return false;
         }
 
-        // Simple 14:00 countdown timer (14 minutes)
+        // 14:00 countdown timer (14 minutes) - persists across page refreshes
         const countdownMinutes = 14;
         const countdownMs = countdownMinutes * 60 * 1000;
+        const storageKey = 'countdown_end_time_14min';
         
-        // Always start from 14:00 on page load
-        let endTime = Date.now() + countdownMs;
+        // Get saved end time or initialize to 14:00
+        let endTime = localStorage.getItem(storageKey);
+        
+        if (!endTime) {
+            // First time: start from 14:00
+            endTime = Date.now() + countdownMs;
+            localStorage.setItem(storageKey, endTime.toString());
+        } else {
+            endTime = parseInt(endTime);
+            const now = Date.now();
+            
+            // If countdown already finished, reset to 14:00
+            if (endTime <= now) {
+                endTime = now + countdownMs;
+                localStorage.setItem(storageKey, endTime.toString());
+            }
+        }
 
         function updateCountdown() {
             const now = Date.now();
@@ -1605,6 +1621,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // If countdown reached 0, reset to 14:00
             if (timeLeft <= 0) {
                 endTime = Date.now() + countdownMs;
+                localStorage.setItem(storageKey, endTime.toString());
                 timeLeft = endTime - now;
             }
 
