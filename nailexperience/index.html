@@ -1564,25 +1564,28 @@ document.addEventListener('DOMContentLoaded', function() {
             countdownWidget.classList.remove('elementor-invisible');
         }
 
-        const interval = parseInt(countdownWrapper.getAttribute('data-evergreen-interval')) || 1440; // 1440 minutes = 24 hours
         const minutesEl = countdownWrapper.querySelector('.elementor-countdown-minutes');
         const secondsEl = countdownWrapper.querySelector('.elementor-countdown-seconds');
 
         if (!minutesEl || !secondsEl) return;
 
+        // Countdown starts from 14:00 (14 minutes)
+        const countdownMinutes = 14;
+        
         // Get or set initial time from localStorage
         let storedEndTime = localStorage.getItem('countdown_end_time');
         let endTime;
 
         if (storedEndTime) {
             endTime = parseInt(storedEndTime);
-            // If stored time is in the past, reset to new interval
-            if (Date.now() > endTime) {
-                endTime = Date.now() + (interval * 60 * 1000);
+            // If stored time is in the past or less than 14 minutes remaining, reset to 14:00
+            const timeLeft = endTime - Date.now();
+            if (timeLeft <= 0 || timeLeft < (countdownMinutes * 60 * 1000)) {
+                endTime = Date.now() + (countdownMinutes * 60 * 1000);
                 localStorage.setItem('countdown_end_time', endTime.toString());
             }
         } else {
-            endTime = Date.now() + (interval * 60 * 1000);
+            endTime = Date.now() + (countdownMinutes * 60 * 1000);
             localStorage.setItem('countdown_end_time', endTime.toString());
         }
 
@@ -1591,19 +1594,19 @@ document.addEventListener('DOMContentLoaded', function() {
             const timeLeft = endTime - now;
 
             if (timeLeft <= 0) {
-                // Reset countdown
-                endTime = Date.now() + (interval * 60 * 1000);
+                // Reset countdown to 14:00
+                endTime = Date.now() + (countdownMinutes * 60 * 1000);
                 localStorage.setItem('countdown_end_time', endTime.toString());
                 updateCountdown();
                 return;
             }
 
-            // Calculate total minutes and seconds remaining
+            // Calculate minutes and seconds remaining
             const totalMinutes = Math.floor(timeLeft / (1000 * 60));
             const totalSeconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
             
-            // Get minutes (0-1439 for 24 hour period) and seconds (0-59)
-            const minutes = totalMinutes % 60; // Show only 0-59 in the display
+            // Display minutes (0-14) and seconds (0-59)
+            const minutes = totalMinutes;
             const seconds = totalSeconds;
 
             minutesEl.textContent = String(minutes).padStart(2, '0');
