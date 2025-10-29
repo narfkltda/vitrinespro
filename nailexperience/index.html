@@ -1552,6 +1552,76 @@ document.addEventListener('DOMContentLoaded', function() {
             trackCTAClick(button);
         }
     });
+
+    // Initialize countdown timer
+    function initCountdown() {
+        const countdownWrapper = document.querySelector('.elementor-countdown-wrapper[data-evergreen-interval]');
+        if (!countdownWrapper) return;
+
+        // Remove invisible class to show the countdown
+        const countdownWidget = countdownWrapper.closest('.elementor-widget-countdown');
+        if (countdownWidget) {
+            countdownWidget.classList.remove('elementor-invisible');
+        }
+
+        const interval = parseInt(countdownWrapper.getAttribute('data-evergreen-interval')) || 1440; // 1440 minutes = 24 hours
+        const minutesEl = countdownWrapper.querySelector('.elementor-countdown-minutes');
+        const secondsEl = countdownWrapper.querySelector('.elementor-countdown-seconds');
+
+        if (!minutesEl || !secondsEl) return;
+
+        // Get or set initial time from localStorage
+        let storedEndTime = localStorage.getItem('countdown_end_time');
+        let endTime;
+
+        if (storedEndTime) {
+            endTime = parseInt(storedEndTime);
+            // If stored time is in the past, reset to new interval
+            if (Date.now() > endTime) {
+                endTime = Date.now() + (interval * 60 * 1000);
+                localStorage.setItem('countdown_end_time', endTime.toString());
+            }
+        } else {
+            endTime = Date.now() + (interval * 60 * 1000);
+            localStorage.setItem('countdown_end_time', endTime.toString());
+        }
+
+        function updateCountdown() {
+            const now = Date.now();
+            const timeLeft = endTime - now;
+
+            if (timeLeft <= 0) {
+                // Reset countdown
+                endTime = Date.now() + (interval * 60 * 1000);
+                localStorage.setItem('countdown_end_time', endTime.toString());
+                updateCountdown();
+                return;
+            }
+
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+            minutesEl.textContent = String(minutes).padStart(2, '0');
+            secondsEl.textContent = String(seconds).padStart(2, '0');
+        }
+
+        // Update immediately
+        updateCountdown();
+        
+        // Update every second
+        setInterval(updateCountdown, 1000);
+    }
+
+    // Wait for Elementor to load, then initialize countdown
+    if (typeof elementorFrontend !== 'undefined') {
+        elementorFrontend.hooks.addAction('frontend/element_ready/global', initCountdown);
+        
+        // Also try immediate initialization
+        setTimeout(initCountdown, 500);
+    } else {
+        // If Elementor not loaded, initialize anyway
+        setTimeout(initCountdown, 1000);
+    }
 });
 </script>
 
