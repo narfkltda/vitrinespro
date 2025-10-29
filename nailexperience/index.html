@@ -1553,7 +1553,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Initialize countdown timer
+    // Initialize countdown timer (wait for Elementor to fully load first)
     let countdownInterval = null;
     
     function initCountdown() {
@@ -1570,7 +1570,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         if (!countdownWrapper) {
-            console.log('Countdown: Wrapper not found');
             return false;
         }
 
@@ -1583,25 +1582,17 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         // Find minutes and seconds elements (try different selectors)
-        let minutesEl = countdownWrapper.querySelector('.elementor-countdown-minutes');
-        let secondsEl = countdownWrapper.querySelector('.elementor-countdown-seconds');
-        
-        if (!minutesEl) {
-            minutesEl = countdownWrapper.querySelector('.elementor-countdown-digits.elementor-countdown-minutes');
-        }
-        if (!secondsEl) {
-            secondsEl = countdownWrapper.querySelector('.elementor-countdown-digits.elementor-countdown-seconds');
-        }
+        let minutesEl = countdownWrapper.querySelector('.elementor-countdown-minutes') || 
+                       countdownWrapper.querySelector('.elementor-countdown-digits.elementor-countdown-minutes');
+        let secondsEl = countdownWrapper.querySelector('.elementor-countdown-seconds') || 
+                       countdownWrapper.querySelector('.elementor-countdown-digits.elementor-countdown-seconds');
 
         if (!minutesEl || !secondsEl) {
-            console.log('Countdown: Minutes or seconds element not found');
             return false;
         }
 
-        // Countdown starts from 14:00 (14 minutes)
+        // Countdown starts from 14:00 (14 minutes) - always reset on page load
         const countdownMinutes = 14;
-        
-        // Always reset to 14:00 on page load (no localStorage persistence)
         let endTime = Date.now() + (countdownMinutes * 60 * 1000);
 
         function updateCountdown() {
@@ -1611,48 +1602,51 @@ document.addEventListener('DOMContentLoaded', function() {
             if (timeLeft <= 0) {
                 // Reset countdown to 14:00
                 endTime = Date.now() + (countdownMinutes * 60 * 1000);
-                timeLeft = endTime - Date.now(); // Recalculate with new endTime
+                timeLeft = endTime - now;
             }
 
             // Calculate minutes and seconds remaining
-            const remainingMilliseconds = Math.max(0, timeLeft);
-            const totalMinutes = Math.floor(remainingMilliseconds / (1000 * 60));
-            const remainingSeconds = Math.floor((remainingMilliseconds % (1000 * 60)) / 1000);
-            
-            // Display minutes (0-14) and seconds (0-59)
-            const minutes = totalMinutes;
-            const seconds = remainingSeconds;
+            const remainingMs = Math.max(0, timeLeft);
+            const minutes = Math.floor(remainingMs / (1000 * 60));
+            const seconds = Math.floor((remainingMs % (1000 * 60)) / 1000);
 
-            if (minutesEl && secondsEl) {
-                minutesEl.textContent = String(minutes).padStart(2, '0');
-                secondsEl.textContent = String(seconds).padStart(2, '0');
-            }
+            // Update display
+            minutesEl.textContent = String(minutes).padStart(2, '0');
+            secondsEl.textContent = String(seconds).padStart(2, '0');
         }
 
         // Update immediately
         updateCountdown();
         
-        // Update every second
+        // Update every second (1000ms)
         countdownInterval = setInterval(updateCountdown, 1000);
-        console.log('Countdown: Initialized and running from 14:00');
+        console.log('Countdown: Running from 14:00');
         return true;
     }
 
-    // Try to initialize multiple times to ensure it works
-    function tryInitCountdown() {
-        if (initCountdown()) {
-            console.log('Countdown: Successfully initialized');
+    // Wait for Elementor to fully initialize, then initialize countdown
+    function waitForElementorAndInit() {
+        // Check if Elementor Pro handlers are loaded
+        if (typeof elementorFrontend !== 'undefined' && typeof elementorFrontend.hooks !== 'undefined') {
+            // Wait a bit more for Elementor to process widgets
+            setTimeout(function() {
+                if (!initCountdown()) {
+                    // Retry once more after Elementor widgets initialize
+                    setTimeout(initCountdown, 1000);
+                }
+            }, 1500);
         } else {
-            // Retry after 500ms if not found yet
-            setTimeout(tryInitCountdown, 500);
+            // If Elementor not available, try to init anyway
+            setTimeout(function() {
+                if (!initCountdown()) {
+                    setTimeout(initCountdown, 1000);
+                }
+            }, 1000);
         }
     }
 
-    // Start initialization attempts
-    setTimeout(tryInitCountdown, 100);
-    setTimeout(tryInitCountdown, 500);
-    setTimeout(tryInitCountdown, 1000);
-    setTimeout(tryInitCountdown, 2000);
+    // Start initialization after DOM and scripts load
+    waitForElementorAndInit();
 });
 </script>
 
