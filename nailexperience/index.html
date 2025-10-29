@@ -1554,20 +1554,49 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Initialize countdown timer
+    let countdownInterval = null;
+    
     function initCountdown() {
-        const countdownWrapper = document.querySelector('.elementor-countdown-wrapper[data-evergreen-interval]');
-        if (!countdownWrapper) return;
+        // Clear any existing interval
+        if (countdownInterval) {
+            clearInterval(countdownInterval);
+            countdownInterval = null;
+        }
+
+        // Try multiple selectors to find countdown wrapper
+        let countdownWrapper = document.querySelector('.elementor-countdown-wrapper[data-evergreen-interval]');
+        if (!countdownWrapper) {
+            countdownWrapper = document.querySelector('.elementor-countdown-wrapper');
+        }
+        
+        if (!countdownWrapper) {
+            console.log('Countdown: Wrapper not found');
+            return false;
+        }
 
         // Remove invisible class to show the countdown
         const countdownWidget = countdownWrapper.closest('.elementor-widget-countdown');
         if (countdownWidget) {
             countdownWidget.classList.remove('elementor-invisible');
+            countdownWidget.style.visibility = 'visible';
+            countdownWidget.style.opacity = '1';
         }
 
-        const minutesEl = countdownWrapper.querySelector('.elementor-countdown-minutes');
-        const secondsEl = countdownWrapper.querySelector('.elementor-countdown-seconds');
+        // Find minutes and seconds elements (try different selectors)
+        let minutesEl = countdownWrapper.querySelector('.elementor-countdown-minutes');
+        let secondsEl = countdownWrapper.querySelector('.elementor-countdown-seconds');
+        
+        if (!minutesEl) {
+            minutesEl = countdownWrapper.querySelector('.elementor-countdown-digits.elementor-countdown-minutes');
+        }
+        if (!secondsEl) {
+            secondsEl = countdownWrapper.querySelector('.elementor-countdown-digits.elementor-countdown-seconds');
+        }
 
-        if (!minutesEl || !secondsEl) return;
+        if (!minutesEl || !secondsEl) {
+            console.log('Countdown: Minutes or seconds element not found');
+            return false;
+        }
 
         // Countdown starts from 14:00 (14 minutes)
         const countdownMinutes = 14;
@@ -1597,8 +1626,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Reset countdown to 14:00
                 endTime = Date.now() + (countdownMinutes * 60 * 1000);
                 localStorage.setItem('countdown_end_time', endTime.toString());
-                updateCountdown();
-                return;
             }
 
             // Calculate minutes and seconds remaining
@@ -1606,30 +1633,39 @@ document.addEventListener('DOMContentLoaded', function() {
             const totalSeconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
             
             // Display minutes (0-14) and seconds (0-59)
-            const minutes = totalMinutes;
-            const seconds = totalSeconds;
+            const minutes = Math.max(0, totalMinutes);
+            const seconds = Math.max(0, totalSeconds);
 
-            minutesEl.textContent = String(minutes).padStart(2, '0');
-            secondsEl.textContent = String(seconds).padStart(2, '0');
+            if (minutesEl && secondsEl) {
+                minutesEl.textContent = String(minutes).padStart(2, '0');
+                secondsEl.textContent = String(seconds).padStart(2, '0');
+            }
         }
 
         // Update immediately
         updateCountdown();
         
         // Update every second
-        setInterval(updateCountdown, 1000);
+        countdownInterval = setInterval(updateCountdown, 1000);
+        console.log('Countdown: Initialized and running from 14:00');
+        return true;
     }
 
-    // Wait for Elementor to load, then initialize countdown
-    if (typeof elementorFrontend !== 'undefined') {
-        elementorFrontend.hooks.addAction('frontend/element_ready/global', initCountdown);
-        
-        // Also try immediate initialization
-        setTimeout(initCountdown, 500);
-    } else {
-        // If Elementor not loaded, initialize anyway
-        setTimeout(initCountdown, 1000);
+    // Try to initialize multiple times to ensure it works
+    function tryInitCountdown() {
+        if (initCountdown()) {
+            console.log('Countdown: Successfully initialized');
+        } else {
+            // Retry after 500ms if not found yet
+            setTimeout(tryInitCountdown, 500);
+        }
     }
+
+    // Start initialization attempts
+    setTimeout(tryInitCountdown, 100);
+    setTimeout(tryInitCountdown, 500);
+    setTimeout(tryInitCountdown, 1000);
+    setTimeout(tryInitCountdown, 2000);
 });
 </script>
 
