@@ -1598,8 +1598,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
-            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+            // Calculate total minutes and seconds remaining
+            const totalMinutes = Math.floor(timeLeft / (1000 * 60));
+            const totalSeconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+            
+            // Get minutes (0-1439 for 24 hour period) and seconds (0-59)
+            const minutes = totalMinutes % 60; // Show only 0-59 in the display
+            const seconds = totalSeconds;
 
             minutesEl.textContent = String(minutes).padStart(2, '0');
             secondsEl.textContent = String(seconds).padStart(2, '0');
