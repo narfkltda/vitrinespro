@@ -1591,28 +1591,53 @@ document.addEventListener('DOMContentLoaded', function() {
             return false;
         }
 
-        // Countdown starts from 14:00 (14 minutes) - always reset on page load
-        const countdownMinutes = 14;
-        let endTime = Date.now() + (countdownMinutes * 60 * 1000);
+        // Evergreen countdown: 24-hour cycle (1440 minutes) like original site
+        const evergreenInterval = parseInt(countdownWrapper.getAttribute('data-evergreen-interval')) || 1440; // 1440 = 24 hours
+        const intervalMs = evergreenInterval * 60 * 1000; // Convert to milliseconds
+        
+        // Get or initialize cycle start time in localStorage
+        let cycleStartTime = localStorage.getItem('countdown_cycle_start');
+        if (!cycleStartTime) {
+            cycleStartTime = Date.now().toString();
+            localStorage.setItem('countdown_cycle_start', cycleStartTime);
+        }
+        
+        cycleStartTime = parseInt(cycleStartTime);
+        const now = Date.now();
+        
+        // Calculate how much time has passed in the current cycle
+        const elapsed = now - cycleStartTime;
+        const cyclesCompleted = Math.floor(elapsed / intervalMs);
+        
+        // Calculate the start time of the current cycle
+        const currentCycleStart = cycleStartTime + (cyclesCompleted * intervalMs);
+        const nextCycleEnd = currentCycleStart + intervalMs;
 
         function updateCountdown() {
             const now = Date.now();
-            let timeLeft = endTime - now;
+            let timeLeft = nextCycleEnd - now;
 
+            // If cycle completed, calculate next cycle
             if (timeLeft <= 0) {
-                // Reset countdown to 14:00
-                endTime = Date.now() + (countdownMinutes * 60 * 1000);
-                timeLeft = endTime - now;
+                const elapsedSinceCycleStart = now - currentCycleStart;
+                const newCycles = Math.floor(elapsedSinceCycleStart / intervalMs) + 1;
+                const newCycleStart = currentCycleStart + (newCycles * intervalMs);
+                localStorage.setItem('countdown_cycle_start', newCycleStart.toString());
+                timeLeft = (newCycleStart + intervalMs) - now;
             }
 
             // Calculate minutes and seconds remaining
-            const remainingMs = Math.max(0, timeLeft);
-            const minutes = Math.floor(remainingMs / (1000 * 60));
-            const seconds = Math.floor((remainingMs % (1000 * 60)) / 1000);
+            // Show only the last hour portion (0-59 minutes) in MM:SS format
+            const totalMinutes = Math.floor(timeLeft / (1000 * 60));
+            const totalSeconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+            
+            // Display: show minutes (0-59) and seconds (0-59)
+            const displayMinutes = totalMinutes % 60;
+            const displaySeconds = totalSeconds % 60;
 
             // Update display
-            minutesEl.textContent = String(minutes).padStart(2, '0');
-            secondsEl.textContent = String(seconds).padStart(2, '0');
+            minutesEl.textContent = String(displayMinutes).padStart(2, '0');
+            secondsEl.textContent = String(displaySeconds).padStart(2, '0');
         }
 
         // Update immediately
@@ -1620,7 +1645,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Update every second (1000ms)
         countdownInterval = setInterval(updateCountdown, 1000);
-        console.log('Countdown: Running from 14:00');
+        console.log('Countdown: Evergreen timer initialized (24-hour cycle)');
         return true;
     }
 
