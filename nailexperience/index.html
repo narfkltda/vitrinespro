@@ -1601,22 +1601,8 @@ document.addEventListener('DOMContentLoaded', function() {
         // Countdown starts from 14:00 (14 minutes)
         const countdownMinutes = 14;
         
-        // Get or set initial time from localStorage
-        let storedEndTime = localStorage.getItem('countdown_end_time');
-        let endTime;
-
-        if (storedEndTime) {
-            endTime = parseInt(storedEndTime);
-            // If stored time is in the past or less than 14 minutes remaining, reset to 14:00
-            const timeLeft = endTime - Date.now();
-            if (timeLeft <= 0 || timeLeft < (countdownMinutes * 60 * 1000)) {
-                endTime = Date.now() + (countdownMinutes * 60 * 1000);
-                localStorage.setItem('countdown_end_time', endTime.toString());
-            }
-        } else {
-            endTime = Date.now() + (countdownMinutes * 60 * 1000);
-            localStorage.setItem('countdown_end_time', endTime.toString());
-        }
+        // Always reset to 14:00 on page load (no localStorage persistence)
+        let endTime = Date.now() + (countdownMinutes * 60 * 1000);
 
         function updateCountdown() {
             const now = Date.now();
@@ -1625,7 +1611,6 @@ document.addEventListener('DOMContentLoaded', function() {
             if (timeLeft <= 0) {
                 // Reset countdown to 14:00
                 endTime = Date.now() + (countdownMinutes * 60 * 1000);
-                localStorage.setItem('countdown_end_time', endTime.toString());
                 timeLeft = endTime - Date.now(); // Recalculate with new endTime
             }
 
